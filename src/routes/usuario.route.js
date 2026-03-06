@@ -1,0 +1,11 @@
+import {Router} from 'express';
+import * as usuarioController from '../controllers/usuario.controller.js';
+
+const router = Router();
+
+router.get('/', usuarioController.listar);
+router.post('/login', usuarioController.login);
+router.get('/:id', usuarioController.buscarPorId);
+router.post('/', usuarioController.criar);
+
+export default router;
