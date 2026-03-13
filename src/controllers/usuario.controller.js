@@ -43,3 +43,30 @@ export async function login(req, res) {
     const token = crypto.randomBytes(24).toString('hex');
     return res.status(200).json({ msg: 'Login bem-sucedido', token, usuario: { id: usuario.id, nome: usuario.nome, email: usuario.email } });
 }
+
+export async function atualizar(req, res) {
+        const id = req.params.id;
+        const { nome, email } = req.body;
+
+        // validação mínima
+        if (!nome || !email) {
+            return res.status(400).json({ msg: 'Pelo menos um campo (nome ou gênero) deve ser enviado' });
+        }
+        const resultado = await usuarioModel.atualizarUsuarios(nome, email, id);
+        console.log(resultado);
+
+        return res.status(200).json({ msg: 'Jogo atualizado com sucesso' });
+}
+
+export async function deletar(req, res) {
+    
+        const id = req.params.id;
+        const usuarios = await usuarioModel.deletarUsuarios(id)
+        if (!usuarios){
+            return res.status(400).json({msg:"O id deve ser escolhido"});
+        }
+
+        console.log(usuarios)
+
+        return res.status(200).json({ msg: 'Jogo deletado com sucesso' });
+}

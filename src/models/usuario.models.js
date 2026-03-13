@@ -31,7 +31,21 @@ export async function buscarUsuarioPorEmail(email) {
     return resultado[0];
 }
 
+export async function atualizarUsuarios(nome, email, id){
+    const [resultado] = await conexao.query(
+        'UPDATE usuarios SET nome = ?, email = ? WHERE id = ?', 
+        [nome, email, id]
+    );
+    return resultado.affectedRows;
+}
 
+export async function deletarUsuarios(id){
+    const [resultado] = await conexao.query(
+        'DELETE FROM  usuarios WHERE id = ? '
+        , [id]
+    );
+    return resultado.affectedRows;
+}
 
 
 
